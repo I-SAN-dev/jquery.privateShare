@@ -164,7 +164,12 @@
 
         };
 
-    // Register the jQuery plugin
+    /**
+     * Initializes the privateShare functionality
+     * @param {string} action - what to do
+     * @param {Object} options - some options, optional
+     * @returns {jQuery}
+     */
     $.fn.privateShare = function (action, options) {
         if (typeof publicFunctions[action] === "function") {
             return this.each(function () {
