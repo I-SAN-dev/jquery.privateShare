@@ -11,24 +11,46 @@
  */
 
 (function ($) {
+    "use strict";
 
     // Abort if jQuery is not loaded
     if (!window.jQuery || !$) {
         throw new Error('jquery.privateShare needs jQuery Library to be loaded - which is not.')
     }
 
+    var
+        constants = {
+            FB: {
+                POPUP: {
+                    WIDTH: 560,
+                    HEIGHT: 630
+                }
+            },
+            GP: {
+                POPUP: {
+                    WIDTH: 505,
+                    HEIGHT: 665
+                }
+            },
+            TW: {
+                POPUP: {
+                    WIDTH: 695,
+                    HEIGHT: 254
+                }
+            }
+        },
+
     // Save all functions in here
-    var functions = {};
+        publicFunctions = {};
 
     // Register the jQuery plugin
-    $.fn.privateShare = function(action, options) {
-        if (typeof functions[action] === "function") {
+    $.fn.privateShare = function (action, options) {
+        if (typeof publicFunctions[action] === "function") {
             return this.each(function () {
-                functions[action]($(this), options)
+                publicFunctions[action]($(this), options)
             });
-        } else {
-            throw new Error('jquery.privateShare has no function "' + action + '"!' );
         }
-    }
+        throw new Error('jquery.privateShare has no function "' + action + '"!' );
+    };
 
 }(jQuery));
