@@ -63,7 +63,7 @@
              * @returns {string}
              */
             FB: function (url) {
-                return 'todo';
+                return 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
             },
             /**
              * Generates a Google+ Share Link
@@ -71,7 +71,7 @@
              * @returns {string}
              */
             GP: function (url) {
-                return 'todo';
+                return 'https://plus.google.com/share?url=' + encodeURIComponent(url);
             },
             /**
              * Generates a Twitter tweet link with an optional message
@@ -80,7 +80,19 @@
              * @returns {string}
              */
             TW: function (url, message) {
-                return 'todo';
+                // Generate tweet text
+                var tweet = url;
+                // attach message only if link < length limit
+                if (tweet.length < 136 && message && message.length > 0) {
+                    tweet += (' - ' + message);
+
+                    // crop the tweet if necessary (only do this automatically if it is too long due to the description)
+                    // If only the link is already too long, the user has to deal with it, e.g. shorten it.
+                    if (tweet.length > 140) {
+                        tweet = tweet.substring(0, 137) + '...';
+                    }
+                }
+                return 'https://twitter.com/home?status=' + encodeURIComponent(tweet);
             }
         },
 
@@ -138,7 +150,7 @@
             }
 
             // get the share link
-            var href = getSharelink[service](url, message),
+            var href = getShareLink[service](url, message),
                 alreadyClicked = false;
 
             // set the sharelink
