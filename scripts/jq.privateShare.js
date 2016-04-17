@@ -32,6 +32,7 @@
                     BLANK: '<span>f</span>',
                     FONTAWESOME: '<span class="fa fa-facebook" aria-hidden="true"></span>',
                 },
+                TITLE: 'Share on Facebook',
                 COLOR: '#3B5998'
             },
             GP: {
@@ -43,6 +44,7 @@
                     BLANK: '<span>G+</span>',
                     FONTAWESOME: '<span class="fa fa-google-plus" aria-hidden="true"></span>',
                 },
+                TITLE: 'Share on Google+',
                 COLOR: '#DB4437'
             },
             TW: {
@@ -54,6 +56,7 @@
                     BLANK: '<span>t</span>',
                     FONTAWESOME: '<span class="fa fa-twitter" aria-hidden="true"></span>',
                 },
+                TITLE: 'Tweet this',
                 COLOR: '#0084B4'
             },
             POPUPSETTINGS: {
@@ -126,7 +129,7 @@
                 height = constants[service].POPUP.HEIGHT,
                 $win = $(window),
                 wwidth = $win.width(),
-                wheight = $win.height,
+                wheight = $win.height(),
                 settings = constants.POPUPSETTINGS,
                 settingsstring = '',
                 win;
@@ -144,7 +147,7 @@
             settings.top = (wheight - height) / 2;
             settings.left = (wwidth - width) / 2;
 
-            $.each(function (key, value) {
+            $.each(settings, function (key, value) {
                 settingsstring += (key + "=" + value + ",");
             });
             win = window.open(link, "privateSharePopup", settingsstring);
@@ -199,26 +202,31 @@
 
             // TODO use options
             var icontype = 'BLANK',
-                size = 64,
+                size = 32,
                 borderRadius = size / 2,
                 $button;
 
             // Create the dom
-            $button =  $('a')
+            $button =  $('<a/>')
                 .css({
                     'background-color':     constants[service].COLOR,
                     'cursor':               'pointer',
                     'display':              'inline-block',
-                    'border-radius':        borderRadius
-                }).append(
+                    'border-radius':        borderRadius,
+                    'text-decoration':      'none',
+                    'outline':              'none'
+                })
+                .prop('title', constants[service].TITLE)
+                .append(
                     $(constants[service].ICON[icontype])
                         .css({
                             'color':        '#ffffff',
                             'text-align':   'center',
                             'display':      'block',
                             'width':        size,
-                            'line-height':  size,
-                            'font-size':    Math.floor(size * 0.6)
+                            'height':       size,
+                            'line-height':  Math.floor(size * 0.96) + 'px', // optical center
+                            'font-size':    Math.floor(size * 0.6) + 'px'
                         })
                 );
 
