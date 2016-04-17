@@ -15,7 +15,7 @@
 
     // Abort if jQuery is not loaded
     if (!window.jQuery || !$) {
-        throw new Error('jquery.privateShare needs jQuery Library to be loaded - which is not.')
+        throw new Error('jquery.privateShare needs jQuery Library to be loaded - which is not.');
     }
 
     var
@@ -27,19 +27,34 @@
                 POPUP: {
                     WIDTH: 560,
                     HEIGHT: 630
-                }
+                },
+                ICON: {
+                    BLANK: '<span>f</span>',
+                    FONTAWESOME: '<span class="fa fa-facebook" aria-hidden="true"></span>',
+                },
+                COLOR: '#3B5998'
             },
             GP: {
                 POPUP: {
                     WIDTH: 505,
                     HEIGHT: 665
-                }
+                },
+                ICON: {
+                    BLANK: '<span>G+</span>',
+                    FONTAWESOME: '<span class="fa fa-google-plus" aria-hidden="true"></span>',
+                },
+                COLOR: '#DB4437'
             },
             TW: {
                 POPUP: {
                     WIDTH: 695,
                     HEIGHT: 254
-                }
+                },
+                ICON: {
+                    BLANK: '<span>t</span>',
+                    FONTAWESOME: '<span class="fa fa-twitter" aria-hidden="true"></span>',
+                },
+                COLOR: '#0084B4'
             },
             POPUPSETTINGS: {
                 directories: 0,
@@ -57,6 +72,7 @@
          * @type {{}}
          */
         getShareLink = {
+
             /**
              * Generates a facebook share link
              * @param {string} url
@@ -65,6 +81,7 @@
             FB: function (url) {
                 return 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url);
             },
+
             /**
              * Generates a Google+ Share Link
              * @param {string} url
@@ -73,6 +90,7 @@
             GP: function (url) {
                 return 'https://plus.google.com/share?url=' + encodeURIComponent(url);
             },
+
             /**
              * Generates a Twitter tweet link with an optional message
              * @param {string} url
@@ -94,6 +112,32 @@
                 }
                 return 'https://twitter.com/home?status=' + encodeURIComponent(tweet);
             }
+        },
+
+        createButton = function (service, options) {
+
+            // TODO use options
+            var icontype = 'BLANK',
+                size = 64,
+                borderRadius = size / 2;
+
+            return $('a')
+                .css({
+                    'background-color':     constants[service].COLOR,
+                    'cursor':               'pointer',
+                    'display':              'inline-block',
+                    'border-radius':        borderRadius
+                }).append(
+                    $(constants[service].ICON[icontype])
+                        .css({
+                            'color':        '#ffffff',
+                            'text-align':   'center',
+                            'display':      'block',
+                            'width':        size,
+                            'line-height':  size,
+                            'font-size':    Math.floor(size * 0.6)
+                        })
+                );
         },
 
         /**
@@ -171,8 +215,9 @@
             });
         },
 
-        // Save all functions in here
+        // Save all public functions in here
         publicFunctions = {
+
             /**
              * Attaches a facebook-sharelink
              * @param {jQuery] $this
@@ -193,12 +238,53 @@
 
             /**
              * Attaches a twitter-tweetlink
-             * param {jQuery] $this
+             * @param {jQuery] $this
              * @param options
              */
             shareTw: function ($this, options) {
                 attachSharelink($this, 'TW', options.url, options.message);
+            },
+
+            /**
+             * Appends a facebook-sharebutton
+             * @param $this
+             * @param options
+             */
+            appendShareFb: function ($this, options) {
+                $this.append(createButton('FB', options));
+            },
+
+            /**
+             * Appends a googleplus-sharebutton
+             * @param $this
+             * @param options
+             */
+            appendShareGp: function ($this, options) {
+                $this.append(createButton('GP', options));
+            },
+
+            /**
+             * Appends a twitter-tweetbutton
+             * @param $this
+             * @param options
+             */
+            appendShareTw: function ($this, options) {
+                $this.append(createButton('TW', options));
+            },
+
+            /**
+             * Appends all available buttons
+             * @param $this
+             * @param options
+             */
+            appendAll: function ($this, options) {
+                $this
+                    .privateShare('appendShareFb', options)
+                    .privateShare('appendShareGp', options)
+                    .privateShare('appendShareTw', options);
             }
+
+
         };
 
     /**
@@ -213,7 +299,7 @@
                 publicFunctions[action]($(this), options);
             });
         }
-        throw new Error('jquery.privateShare has no function "' + action + '"!' );
+        throw new Error('jquery.privateShare has no function "' + action + '"!');
     };
 
 }(jQuery));
