@@ -114,32 +114,6 @@
             }
         },
 
-        createButton = function (service, options) {
-
-            // TODO use options
-            var icontype = 'BLANK',
-                size = 64,
-                borderRadius = size / 2;
-
-            return $('a')
-                .css({
-                    'background-color':     constants[service].COLOR,
-                    'cursor':               'pointer',
-                    'display':              'inline-block',
-                    'border-radius':        borderRadius
-                }).append(
-                    $(constants[service].ICON[icontype])
-                        .css({
-                            'color':        '#ffffff',
-                            'text-align':   'center',
-                            'display':      'block',
-                            'width':        size,
-                            'line-height':  size,
-                            'font-size':    Math.floor(size * 0.6)
-                        })
-                );
-        },
-
         /**
          * Opens a popup for a share-service with specific dimensions.
          * Opens a new tab on mobile view instead
@@ -215,6 +189,46 @@
             });
         },
 
+        /**
+         * Creates a jQuery sharebutton
+         * @param service
+         * @param options
+         * @returns {jQuery}
+         */
+        createButton = function (service, options) {
+
+            // TODO use options
+            var icontype = 'BLANK',
+                size = 64,
+                borderRadius = size / 2,
+                $button;
+
+            // Create the dom
+            $button =  $('a')
+                .css({
+                    'background-color':     constants[service].COLOR,
+                    'cursor':               'pointer',
+                    'display':              'inline-block',
+                    'border-radius':        borderRadius
+                }).append(
+                    $(constants[service].ICON[icontype])
+                        .css({
+                            'color':        '#ffffff',
+                            'text-align':   'center',
+                            'display':      'block',
+                            'width':        size,
+                            'line-height':  size,
+                            'font-size':    Math.floor(size * 0.6)
+                        })
+                );
+
+            // Attach functionality
+            attachSharelink($button, service, options.url, options.message);
+
+            // return
+            return $button;
+        },
+
         // Save all public functions in here
         publicFunctions = {
 
@@ -224,7 +238,7 @@
              * @param {Object} options
              */
             shareFb: function ($this, options) {
-                attachSharelink($this, 'FB', options.url);
+                attachSharelink($this, 'FB', options.url, null);
             },
 
             /**
@@ -233,7 +247,7 @@
              * @param {Object} options
              */
             shareGp: function ($this, options) {
-                attachSharelink($this, 'GP', options.url);
+                attachSharelink($this, 'GP', options.url, null);
             },
 
             /**
