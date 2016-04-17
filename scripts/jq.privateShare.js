@@ -296,9 +296,20 @@
                     .privateShare('appendShareFb', options)
                     .privateShare('appendShareGp', options)
                     .privateShare('appendShareTw', options);
+            },
+
+            /**
+             * Scans the dom for elements where jq.privateShare shall be attached
+             * @param $parent - only scan children of this parent, optional
+             */
+            init: function ($parent) {
+                $parent.find('*[data-jqpshare]').not('*[data-jqpshare-initialized]')
+                    .each(function () {
+                        var $this = $(this);
+
+                        $this.privateShare($this.data('jqpshare'), $this.data());
+                    });
             }
-
-
         };
 
     /**
@@ -315,5 +326,13 @@
         }
         throw new Error('jquery.privateShare has no function "' + action + '"!');
     };
+
+
+    /**
+     * Scan the dom on document.ready
+     */
+    $(document).ready(function () {
+        publicFunctions.init($('body'));
+    });
 
 }(jQuery));
