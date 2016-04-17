@@ -200,12 +200,17 @@
          */
         createButton = function (service, options) {
 
-            // TODO use options
-            var icontype = 'BLANK',
-                size = 32,
-                borderRadius = size / 2,
+            options = $.extend({
+                fontawesome:    true,
+                size:           32,
+                shape:          'round'
+            }, options);
+
+            var icontype = options.fontawesome ? 'FONTAWESOME' : 'BLANK',
+                borderRadius = (options.shape === 'round') ? options.size / 2 : (options.shape === 'rounded') ? options.size / 4 : 0,
                 $button;
 
+            console.log(options);
             // Create the dom
             $button =  $('<a/>')
                 .css({
@@ -223,10 +228,10 @@
                             'color':        '#ffffff',
                             'text-align':   'center',
                             'display':      'block',
-                            'width':        size,
-                            'height':       size,
-                            'line-height':  Math.floor(size * 0.96) + 'px', // optical center
-                            'font-size':    Math.floor(size * 0.6) + 'px'
+                            'width':        options.size,
+                            'height':       options.size,
+                            'line-height':  Math.floor(options.size * 0.96) + 'px', // optical center
+                            'font-size':    Math.floor(options.size * 0.6) + 'px'
                         })
                 );
 
