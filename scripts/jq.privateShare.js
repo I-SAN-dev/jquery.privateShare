@@ -161,7 +161,32 @@
 
         // Save all functions in here
         publicFunctions = {
+            /**
+             * Attaches a facebook-sharelink
+             * @param {jQuery] $this
+             * @param {Object} options
+             */
+            shareFb: function ($this, options) {
+                attachSharelink($this, 'FB', options.url);
+            },
 
+            /**
+             * Attaches a googleplus-sharelink
+             * @param {jQuery] $this
+             * @param {Object} options
+             */
+            shareGp: function ($this, options) {
+                attachSharelink($this, 'GP', options.url);
+            },
+
+            /**
+             * Attaches a twitter-tweetlink
+             * param {jQuery] $this
+             * @param options
+             */
+            shareTw: function ($this, options) {
+                attachSharelink($this, 'TW', options.url, options.message);
+            }
         };
 
     /**
@@ -173,7 +198,7 @@
     $.fn.privateShare = function (action, options) {
         if (typeof publicFunctions[action] === "function") {
             return this.each(function () {
-                publicFunctions[action]($(this), options)
+                publicFunctions[action]($(this), options);
             });
         }
         throw new Error('jquery.privateShare has no function "' + action + '"!' );
