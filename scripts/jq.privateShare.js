@@ -231,7 +231,7 @@
                             'width':        options.size,
                             'height':       options.size,
                             'line-height':  Math.floor(options.size * 0.96) + 'px', // optical center
-                            'font-size':    Math.floor(options.size * 0.6) + 'px'
+                            'font-size':    Math.floor(options.size * 0.5) + 'px'
                         })
                 );
 
