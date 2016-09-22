@@ -210,7 +210,6 @@
                 borderRadius = (options.shape === 'round') ? options.size / 2 : (options.shape === 'rounded') ? options.size / 4 : 0,
                 $button;
 
-            console.log(options);
             // Create the dom
             $button =  $('<a/>')
                 .css({
