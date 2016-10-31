@@ -318,8 +318,8 @@
                 $parent.find('*[data-jqpshare]').not('*[data-jqpshare-initialized]')
                     .each(function () {
                         var $this = $(this);
-
                         $this.privateShare($this.data('jqpshare'), $this.data());
+                        $this.attr('data-jqpshare-initialized', true);
                     });
             }
         };
