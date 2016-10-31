@@ -182,7 +182,9 @@
                 // this allows us to listen for touchstart as well
                 if (!alreadyClicked) {
                     alreadyClicked = true;
-                    setTimeout(function () { alreadyClicked = false; }, 500);
+                    setTimeout(function () {
+                        alreadyClicked = false;
+                    }, 500);
 
                     // Open the sharelink
                     openPopup(service, href);
@@ -201,36 +203,42 @@
         createButton = function (service, options) {
 
             options = $.extend({
-                fontawesome:    true,
-                size:           32,
-                shape:          'round'
+                fontawesome: true,
+                size: 32,
+                shape: 'round'
             }, options);
 
-            var icontype = options.fontawesome ? 'FONTAWESOME' : 'BLANK',
-                borderRadius = (options.shape === 'round') ? options.size / 2 : (options.shape === 'rounded') ? options.size / 4 : 0,
+            var icontype = options.fontawesome
+                    ? 'FONTAWESOME'
+                    : 'BLANK',
+                borderRadius = (options.shape === 'round')
+                    ? options.size / 2
+                    : (options.shape === 'rounded')
+                        ? options.size / 4
+                        : 0,
                 $button;
 
             // Create the dom
-            $button =  $('<a/>')
+            $button = $('<a/>')
                 .css({
-                    'background-color':     constants[service].COLOR,
-                    'cursor':               'pointer',
-                    'display':              'inline-block',
-                    'border-radius':        borderRadius,
-                    'text-decoration':      'none',
-                    'outline':              'none'
+                    'background-color': constants[service].COLOR,
+                    'cursor': 'pointer',
+                    'display': 'inline-block',
+                    'border-radius': borderRadius,
+                    'text-decoration': 'none',
+                    'outline': 'none'
                 })
                 .prop('title', constants[service].TITLE)
                 .append(
                     $(constants[service].ICON[icontype])
                         .css({
-                            'color':        '#ffffff',
-                            'text-align':   'center',
-                            'display':      'block',
-                            'width':        options.size,
-                            'height':       options.size,
-                            'line-height':  Math.floor(options.size * 0.96) + 'px', // optical center
-                            'font-size':    Math.floor(options.size * 0.5) + 'px'
+                            'color': '#ffffff',
+                            'text-align': 'center',
+                            'display': 'block',
+                            'width': options.size,
+                            'height': options.size,
+                            'line-height': Math.floor(options.size * 0.96) + 'px', // optical center
+                            'font-size': Math.floor(options.size * 0.5) + 'px'
                         })
                 );
 
@@ -246,8 +254,8 @@
 
             /**
              * Attaches a facebook-sharelink
-             * @param {jQuery] $this
-             * @param {Object} options
+             * @param {jQuery} $this
+             * @param {{}} options
              */
             shareFb: function ($this, options) {
                 attachSharelink($this, 'FB', options.url, null);
@@ -255,8 +263,8 @@
 
             /**
              * Attaches a googleplus-sharelink
-             * @param {jQuery] $this
-             * @param {Object} options
+             * @param {jQuery} $this
+             * @param {{}} options
              */
             shareGp: function ($this, options) {
                 attachSharelink($this, 'GP', options.url, null);
@@ -264,8 +272,8 @@
 
             /**
              * Attaches a twitter-tweetlink
-             * @param {jQuery] $this
-             * @param options
+             * @param {jQuery} $this
+             * @param {{}} options
              */
             shareTw: function ($this, options) {
                 attachSharelink($this, 'TW', options.url, options.message);
@@ -273,8 +281,8 @@
 
             /**
              * Appends a facebook-sharebutton
-             * @param $this
-             * @param options
+             * @param {jQuery} $this
+             * @param {{}} options
              */
             appendShareFb: function ($this, options) {
                 $this.append(createButton('FB', options));
@@ -282,8 +290,8 @@
 
             /**
              * Appends a googleplus-sharebutton
-             * @param $this
-             * @param options
+             * @param {jQuery} $this
+             * @param {{}} options
              */
             appendShareGp: function ($this, options) {
                 $this.append(createButton('GP', options));
@@ -291,8 +299,8 @@
 
             /**
              * Appends a twitter-tweetbutton
-             * @param $this
-             * @param options
+             * @param {{jQuery}} $this
+             * @param {{}} options
              */
             appendShareTw: function ($this, options) {
                 $this.append(createButton('TW', options));
@@ -300,8 +308,8 @@
 
             /**
              * Appends all available buttons
-             * @param $this
-             * @param options
+             * @param {jQuery} $this
+             * @param {{}} options
              */
             appendAll: function ($this, options) {
                 $this
@@ -312,7 +320,7 @@
 
             /**
              * Scans the dom for elements where jq.privateShare shall be attached
-             * @param $parent - only scan children of this parent, optional
+             * @param {jQuery}$parent - only scan children of this parent, optional
              */
             init: function ($parent) {
                 $parent.find('*[data-jqpshare]').not('*[data-jqpshare-initialized]')
@@ -327,7 +335,7 @@
     /**
      * Initializes the privateShare functionality
      * @param {string} action - what to do
-     * @param {Object} options - some options, optional
+     * @param {{}} options - some options, optional
      * @returns {jQuery}
      */
     $.fn.privateShare = function (action, options) {
