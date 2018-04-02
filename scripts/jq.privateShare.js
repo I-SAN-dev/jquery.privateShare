@@ -26,23 +26,23 @@
             FB: {
                 POPUP: {
                     WIDTH: 560,
-                    HEIGHT: 630
+                    HEIGHT: 560
                 },
                 ICON: {
                     BLANK: '<span>f</span>',
-                    FONTAWESOME: '<span class="fa fa-facebook" aria-hidden="true"></span>'
+                    FONTAWESOME: '<span class="fab fa-facebook-f" aria-hidden="true"></span>'
                 },
                 TITLE: 'Share on Facebook',
                 COLOR: '#3B5998'
             },
             GP: {
                 POPUP: {
-                    WIDTH: 505,
-                    HEIGHT: 665
+                    WIDTH: 400,
+                    HEIGHT: 480
                 },
                 ICON: {
                     BLANK: '<span>G+</span>',
-                    FONTAWESOME: '<span class="fa fa-google-plus" aria-hidden="true"></span>'
+                    FONTAWESOME: '<span class="fab fa-google-plus-g" aria-hidden="true"></span>'
                 },
                 TITLE: 'Share on Google+',
                 COLOR: '#DB4437'
@@ -54,7 +54,7 @@
                 },
                 ICON: {
                     BLANK: '<span>t</span>',
-                    FONTAWESOME: '<span class="fa fa-twitter" aria-hidden="true"></span>'
+                    FONTAWESOME: '<span class="fab fa-twitter" aria-hidden="true"></span>'
                 },
                 TITLE: 'Tweet this',
                 COLOR: '#0084B4'
